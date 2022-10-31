@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         currentDrawType += 1
         
         // Challenge 1:
-        if currentDrawType > 6 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -48,6 +48,9 @@ class ViewController: UIViewController {
         // Challenge 1:
         case 6:
             drawStarEmoji()
+            
+        case 7:
+            drawTWINString()
             
         default:
             break
@@ -210,6 +213,40 @@ class ViewController: UIViewController {
             //ctx.cgContext.corner
             ctx.cgContext.strokePath()
             
+        }
+        imageView.image = img
+    }
+    
+    // Challenge 2:
+    func drawTWINString() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            ctx.cgContext.translateBy(x: 256, y: 256)
+            
+            // T:
+            ctx.cgContext.move(to: CGPoint(x: -250, y: -64))
+            ctx.cgContext.addLine(to: CGPoint(x: -134, y: -64))
+            ctx.cgContext.move(to: CGPoint(x: -192, y: -64))
+            ctx.cgContext.addLine(to: CGPoint(x: -192, y: 64))
+            // W:
+            ctx.cgContext.move(to: CGPoint(x: -122, y: -64))
+            ctx.cgContext.addLine(to: CGPoint(x: -122, y: 64))
+            ctx.cgContext.addLine(to: CGPoint(x: -60, y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: -6, y: 64))
+            ctx.cgContext.addLine(to: CGPoint(x: -6, y: -64))
+            // I:
+            ctx.cgContext.move(to: CGPoint(x: 60, y: 64))
+            ctx.cgContext.addLine(to: CGPoint(x: 60, y: -64))
+            // N:
+            ctx.cgContext.move(to: CGPoint(x: 134, y: 64))
+            ctx.cgContext.addLine(to: CGPoint(x: 134, y: -64))
+            ctx.cgContext.addLine(to: CGPoint(x: 250, y: 64))
+            ctx.cgContext.addLine(to: CGPoint(x: 250, y: -64))
+            
+            ctx.cgContext.setStrokeColor((UIColor.black.cgColor))
+            ctx.cgContext.setLineWidth(3)
+            ctx.cgContext.strokePath()
         }
         imageView.image = img
     }
