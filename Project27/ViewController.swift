@@ -21,7 +21,8 @@ class ViewController: UIViewController {
     @IBAction func redrawTapped(_ sender: Any) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        // Challenge 1:
+        if currentDrawType > 6 {
             currentDrawType = 0
         }
         
@@ -43,6 +44,10 @@ class ViewController: UIViewController {
             
         case 5:
             drawImagesAndText()
+            
+        // Challenge 1:
+        case 6:
+            drawStarEmoji()
             
         default:
             break
@@ -170,6 +175,48 @@ class ViewController: UIViewController {
         }
         // 6. Update the image view with the finished result.
         imageView.image = img
+    }
+    
+    // Challenge 1:
+    func drawStarEmoji() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            ctx.cgContext.translateBy(x: 256, y: 256)
+            
+            var length: CGFloat = 240
+            
+            ctx.cgContext.rotate(by: -.pi / 2)
+            ctx.cgContext.move(to: CGPoint(x: length, y: 0))
+            
+            for _ in 0 ..< 360 {
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                ctx.cgContext.rotate(by: -.pi / 0.83333)
+                ctx.cgContext.addLine(to: CGPoint(x: length, y: 0))
+                length *= 0.99
+            }
+            
+            ctx.cgContext.setStrokeColor(UIColor.systemYellow.cgColor)
+            ctx.cgContext.setLineWidth(5)
+            //ctx.cgContext.corner
+            ctx.cgContext.strokePath()
+            
+        }
+        imageView.image = img
+    }
+    
+    // Degrees to radians converter:
+    func deg2rad(_ number: Double) -> Double {
+        return number * .pi / 180
     }
 }
 
